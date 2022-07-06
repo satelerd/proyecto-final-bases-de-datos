@@ -13,7 +13,7 @@ en alguna organización de las siguientes industrias o actividades:
 - Minería
 - Agricultura
 
-## El proyecto debe contener lo siguiente:
+### El proyecto debe contener lo siguiente
 1. Caso escrito que describa con detalle el problema, la necesidad y los requisitos lógicos
 a considerar.
 2. Modelo Entidad Relación con, al menos, 6 entidades (fuertes o débiles) en total.
@@ -33,3 +33,15 @@ preguntas relevantes del caso. Considere los siguientes tipos de consultas:
     c   . 4 consultas que agrupen información, contando registros, sumando valores de
 algún campo específico, sacando promedios de valores de algún campo
 específico.
+
+Tienes que entregar tus informes con todos tus análisis, supuestos y descripciones (ver
+formato detallado más abajo) de la forma más profesional posible. Piensa que esto lo
+debería leer un ejecutivo de la empresa que te ha encargado este desarrollo.
+
+### Entregables
+1. Power Point con los temas 1, 2, 3 desarrollados y explicados.
+2. Script SQL para el punto 4. Este Script SQL debe poder ejecutarse en Workbench, crear
+la base de datos y las tablas en Mysql Xampp en cualquier equipo con Windows en el
+que corra.
+3. Notebooks python con los temas 5, 6, 7. Estos Notebooks deben poder ejecutarse sin
+errores en Jupyter Notebooks conectado a la Base de datos en Mysql Xampp.
