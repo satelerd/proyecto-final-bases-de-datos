@@ -26,9 +26,6 @@
 # 3.
 import sqlite3
 import csv
-import os
-import sys
-import time
 
 
 def post_data():
