@@ -2,7 +2,13 @@
 # 1. Caso escrito que describa con detalle el problema, la necesidad y los requisitos lógicos
 # a considerar.
 # 2. Modelo Entidad Relación con, al menos, 6 entidades (fuertes o débiles) en total.
-# # 3. Script de Python que carga los datos con instrucción INSERT INTO en 4 de las 6 tablas creadas.
+
+# 3. Script de Python que carga los datos con instrucción INSERT INTO en 4 de las 6 tablas creadas.
+
+# #4.Script Python con 12 consultas SQL basadas en el modelo que permitan contestar preguntas relevantes del caso. Considere los siguientes tipos de consultas:
+#       a. 4 consultas simples a 4 tablas específicas.
+#       b. 4 consultas que contengas JOIN entre tablas.
+#       c. 4 consultas que agrupen información, contando registros, sumando valores de algún campo específico, sacando promedios de valores de algún campo específico.
 
 
 # Respuestas
@@ -72,4 +78,99 @@ def post_data():
     conn.close()
 
     print("Datos cargados correctamente")
+    return
+
+
+# 4.
+def consultas_sql():
+    # Crear base de datos
+    conn = sqlite3.connect("db.sqlite3")
+    c = conn.cursor()
+
+    # Consultas SQL
+    # a. 4 consultas simples a 4 tablas específicas.
+    # 1. Cliente
+    c.execute("SELECT * FROM cliente WHERE ubicacion = 'Ciudad' AND horario = 'Mañana'")
+    print("1. Cliente")
+    print(c.fetchall())
+    print("---------------------------------------------")
+    # 2. Médico
+    c.execute(
+        "SELECT * FROM medico WHERE area_medica = 'Cardiología' AND horario = 'Mañana'"
+    )
+    print("2. Médico")
+    print(c.fetchall())
+    print("---------------------------------------------")
+    # 3. Examen
+    c.execute(
+        "SELECT * FROM examen WHERE laboratorio = 'Laboratorio 1' AND resultado = 'Positivo'"
+    )
+    print("3. Examen")
+    print(c.fetchall())
+    print("---------------------------------------------")
+    # 4. Cita
+    c.execute(
+        "SELECT * FROM cita WHERE cliente = 'Juan' AND medico = 'Juan' AND examen = 'Examen 1' AND fecha = '2020-01-01' AND hora = '10:00'"
+    )
+    print("4. Cita")
+    print(c.fetchall())
+    print("---------------------------------------------")
+
+    # b. 4 consultas que contengas JOIN entre tablas.
+    # 5. Cliente
+    c.execute("SELECT * FROM cliente JOIN cita ON cliente.nombre = cita.cliente")
+    print("---------------------------------------------")
+    print("1. Cliente")
+    print(c.fetchall())
+    print("---------------------------------------------")
+    # 6. Médico
+    c.execute("SELECT * FROM medico JOIN cita ON medico.nombre = cita.medico")
+    print("2. Médico")
+    print(c.fetchall())
+    print("---------------------------------------------")
+    # 7. Examen
+    c.execute("SELECT * FROM examen JOIN cita ON examen.nombre = cita.examen")
+    print("3. Examen")
+    print(c.fetchall())
+    print("---------------------------------------------")
+    # 8. Clínica
+    c.execute("SELECT * FROM clinica JOIN cita ON clinica.nombre = cita.clinica")
+    print("4. Clínica")
+    print(c.fetchall())
+    print("---------------------------------------------")
+
+    # c. 4 consultas que agrupen información, contando registros, sumando valores de algún campo específico, sacando promedios de valores de algún campo específico.
+    # 9. Cliente
+    c.execute(
+        "SELECT COUNT(*) FROM cliente WHERE ubicacion = 'Ciudad' AND horario = 'Mañana'"
+    )
+    print("---------------------------------------------")
+    print("1. Cliente")
+    print(c.fetchall())
+    print("---------------------------------------------")
+    # 10. Médico
+    c.execute(
+        "SELECT COUNT(*) FROM medico WHERE area_medica = 'Cardiología' AND horario = 'Mañana'"
+    )
+    print("2. Médico")
+    print(c.fetchall())
+    print("---------------------------------------------")
+    # 11. Examen
+    c.execute(
+        "SELECT COUNT(*) FROM examen WHERE laboratorio = 'Laboratorio 1' AND resultado = 'Positivo'"
+    )
+    print("3. Examen")
+    print(c.fetchall())
+    print("---------------------------------------------")
+    # 12. Cita
+    c.execute(
+        "SELECT COUNT(*) FROM cita WHERE cliente = 'Juan' AND medico = 'Juan' AND examen = 'Examen 1' AND fecha = '2020-01-01' AND hora = '10:00'"
+    )
+    print("4. Cita")
+    print(c.fetchall())
+    print("---------------------------------------------")
+
+    conn.commit()
+    conn.close()
+
     return
