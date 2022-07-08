@@ -36,67 +36,48 @@ def post_data():
     conn = sqlite3.connect("db.sqlite3")
     c = conn.cursor()
 
-    # Crear tablas
-    c.execute(
-        """CREATE TABLE IF NOT EXISTS cliente (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nombre TEXT,
-        ubicacion TEXT,
-        horario TEXT
-    )"""
-    )
-    c.execute(
-        """CREATE TABLE IF NOT EXISTS medico (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nombre TEXT,
-        area_medica TEXT,
-        horario TEXT
-    )"""
-    )
-    c.execute(
-        """CREATE TABLE IF NOT EXISTS examen (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nombre TEXT,
-        resultado TEXT,
-        laboratorio TEXT
-    )"""
-    )
-    c.execute(
-        """CREATE TABLE IF NOT EXISTS cita (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        cliente_id INTEGER,
-        medico_id INTEGER,
-        examen_id INTEGER,
-        fecha TEXT,
-        hora TEXT
-    )"""
-    )
-    c.execute(
-        """CREATE TABLE IF NOT EXISTS isapre (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nombre TEXT,
-        cobertura TEXT
-    )"""
-    )
-    c.execute(
-        """CREATE TABLE IF NOT EXISTS clinica (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nombre TEXT,
-        ubicacion TEXT,
-        horario TEXT
-    )"""
-    )
+    # Subimos los datos a la base de datos
+    with open("clientes.csv", "r") as csvfile:
+        reader = csv.reader(csvfile)
 
-    # Cargar datos
-    c.execute(
-        """INSERT INTO cliente (nombre, ubicacion, horario) VALUES ('Juan', 'Calle falsa 123', '8:00 a.m. a 9:00 p.m.')"""
-    )
-    c.execute(
-        """INSERT INTO cliente (nombre, ubicacion, horario) VALUES ('Ped¿', 'Calle falsa 123', '8:00 a.m. a 9:00 p.m.')"""
-    )
+        # Cliente
+        for row in reader:
+            c.execute(
+                "INSERT INTO cliente (nombre, ubicacion, horario) VALUES (nombre, ubicacion, horario)",
+                row,
+            )
+        # Médico
+        for row in reader:
+            c.execute(
+                "INSERT INTO medico (nombre, area_medica, horario) VALUES (nombre, area_medica, horario)",
+                row,
+            )
+        # Examen
+        for row in reader:
+            c.execute(
+                "INSERT INTO examen (nombre, resultado, laboratorio) VALUES (nombre, resultado, laboratorio)",
+                row,
+            )
+        # Cita
+        for row in reader:
+            c.execute(
+                "INSERT INTO cita (cliente, medico, examen, fecha, hora) VALUES (cliente, medico, examen, fecha, hora)",
+                row,
+            )
+        # Isapre
+        for row in reader:
+            c.execute(
+                "INSERT INTO isapre (nombre, cobertura) VALUES (nombre, cobertura)", row
+            )
+        # Clínica
+        for row in reader:
+            c.execute(
+                "INSERT INTO clinica (nombre, ubicacion, horario) VALUES (nombre, ubicacion, horario)",
+                row,
+            )
 
-    return conn, c
+    conn.commit()
+    conn.close()
 
-def create_random_data(conn, c):
-    # primero, crea un generador de nombres random
-    nombres = ["Juan", "Pedro", "María", "José", "Pablo", "Miguel", "Juan", "Pedro", "María", "José", "Pablo", "Miguel", "daniel",
+    print("Datos cargados correctamente")
+    return
