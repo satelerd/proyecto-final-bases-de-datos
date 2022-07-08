@@ -37,37 +37,32 @@ def post_data():
     with open("clientes.csv", "r") as csvfile:
         reader = csv.reader(csvfile)
 
-        # Cliente
         for row in reader:
+            # Cliente
             c.execute(
                 "INSERT INTO cliente (nombre, ubicacion, horario) VALUES (nombre, ubicacion, horario)",
                 row,
             )
-        # Médico
-        for row in reader:
+            # Médico
             c.execute(
                 "INSERT INTO medico (nombre, area_medica, horario) VALUES (nombre, area_medica, horario)",
                 row,
             )
-        # Examen
-        for row in reader:
+            # Examen
             c.execute(
                 "INSERT INTO examen (nombre, resultado, laboratorio) VALUES (nombre, resultado, laboratorio)",
                 row,
             )
-        # Cita
-        for row in reader:
+            # Cita
             c.execute(
                 "INSERT INTO cita (cliente, medico, examen, fecha, hora) VALUES (cliente, medico, examen, fecha, hora)",
                 row,
             )
-        # Isapre
-        for row in reader:
+            # Isapre
             c.execute(
                 "INSERT INTO isapre (nombre, cobertura) VALUES (nombre, cobertura)", row
             )
-        # Clínica
-        for row in reader:
+            # Clínica
             c.execute(
                 "INSERT INTO clinica (nombre, ubicacion, horario) VALUES (nombre, ubicacion, horario)",
                 row,
